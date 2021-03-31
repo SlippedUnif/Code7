@@ -2,4 +2,4 @@
 
     Repositorio para estudos pessoais
     
-    ![image info](./002.jpg)
+    ![002](002.jpg)
