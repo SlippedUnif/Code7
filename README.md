@@ -2,4 +2,4 @@
 
     Repositorio para estudos pessoais
     
-    ![alt text](002.jpg "Title")
+    ![image info](./002.jpg)
