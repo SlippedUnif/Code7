@@ -1,0 +1,144 @@
+.page{
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+    .container-page{
+        
+        border: 1px;
+        border-style: solid;
+        border-color: #D9D9D9;
+        border-radius: 8px;
+        padding: 1rem;
+        .header-page{
+            margin-left: 1%;
+            border-bottom: solid 1px #D9D9D9;
+            margin-bottom: 1%;
+            display: flex;
+            justify-content: space-between;
+            label{
+                font-size: 30px;
+                font-weight: bold;
+                position: relative;
+                padding-left: 40px;
+                mat-icon{
+                    font-size: 40px;
+                    position: absolute;
+                    top: 4px;
+                    left: 0;
+                }
+            }
+            .close{
+                cursor:pointer;
+            }
+        }
+        .body-page{
+            justify-content: center;
+            display: flex;
+            .buttons{
+                position: relative;
+                .buttons-form{
+                    position: absolute;
+                    top: 22%;
+                    left: 10px;
+                    display: flex;
+                    button{
+                        cursor: pointer;
+                        align-items: flex-end;
+                        display: flex;
+                        padding-top: 4px;
+                        border-radius: 4px;
+                        border: solid 1px #D9D9D9;
+                        margin-right: 10px;
+                        position: relative;
+                        width: 100px;
+                        label{
+                            cursor: pointer;
+                            margin-left: 25px;
+                            position: absolute;
+                            top: 4px;
+                        }
+                        mat-icon{
+                            position: absolute;
+                            top: 4px;
+                        }
+                    }
+                }
+            }
+            .container-left{
+                mat-form-field{
+                    margin: 10px;
+                }
+                .filtros-cadastro{
+                    margin-right: 10px;
+                    margin-top: 4%;
+                }
+                .body-cadastro{
+                    .footer-body{
+                        display: flex;
+                        padding-right: 12.5%;
+                        
+                    }
+                }
+            }
+            .container-rigth{
+                border: 1px;
+                border-style: solid;
+                border-color: #D9D9D9;
+                border-radius: 8px;
+                padding: 1%;
+                position: relative;
+                .imagem-filme{
+                    height: 90%;
+                    width: 100%;
+                    background-size: cover;
+                    justify-content: center;
+                    background-position: center;
+                    opacity: .7;
+                    cursor: pointer;
+                }
+                label{
+                    position: absolute;
+                    text-align: center;
+                    left: 0;
+        
+                }
+                input{
+                    position: absolute;
+                    top: 50%;
+                    max-width: 70%;
+                    left: 15%;
+                }
+                .mudar-imagem{
+                    top:50%;
+                    font-weight: bold;
+                    cursor: pointer;
+        
+                }
+                .titulo-filme{
+                    bottom: 10px;
+                    font-size: 33px;
+                }
+            }
+        }
+        .table-filmes{
+            border-top: solid 1px #D9D9D9;
+            margin-top: 1%;
+            display: block; 
+            overflow-y: scroll;
+            height:   12.55rem;
+            table{
+                .titulo-filme{
+                    cursor: pointer;
+                }
+                .button-table{
+                    margin-right: 4px;
+                    padding-top: 4px;
+                    border-radius: 20px;
+                    mat-icon{
+                        top: 2px;
+                    }
+                }
+            }
+        }
+    }
+}

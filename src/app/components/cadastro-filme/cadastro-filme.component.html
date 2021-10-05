@@ -1,0 +1,134 @@
+<div [formGroup]='form' *ngIf="form" class="page row">
+    <div class="container-page col-8">
+        <div class="header-page col">
+            <label>
+                <mat-icon>slideshow</mat-icon>
+                Filmes
+            </label>
+            <mat-icon class="close">close</mat-icon>
+        </div>
+        <div class="body-page">
+            <div class="container-left col-8">
+                <div class="buttons">
+
+                    <div class="buttons-form">
+                        <button  (click)="inicializarForm()" class="button-table">
+                            <mat-icon>description</mat-icon>
+                            <label >Novo</label>
+                        </button>
+                        <button type="file" class="button-table">
+                            <mat-icon>folder</mat-icon>
+                            <label for="files" >Abrir</label>
+                            <input id="files" style="visibility:hidden;" type="file" value="upload" (change)="abrirBase($event)" >    
+                        </button>
+                        <button  (click)="salvarFormulario()" class="button-table">
+                            <mat-icon>save</mat-icon>
+                            <label >Salvar</label>
+                        </button> 
+                        <button  (click)="inicializarForm()" class="button-table">
+                            <mat-icon>autorenew</mat-icon>
+                            <label >Cancelar</label>
+                        </button> 
+                        <button  (click)="salvarTabela()" class="button-table">
+                            <mat-icon>print</mat-icon>
+                            <label >Imprimir</label>
+                        </button> 
+                    </div>
+                </div>
+                <div class="filtros-cadastro">
+                    <mat-form-field *ngFor="let filtro of filtros" appearance="fill" class="col">
+                        <mat-label>{{filtro.titulo}}</mat-label>
+                        <mat-select formControlName="{{filtro.controller}}">
+                            <mat-option>
+                                <ngx-mat-select-search 
+                                formControlName="{{filtro.controller}}Search"
+                                [searching]="searching"
+                                (input)="buscarFiltro($event, filtro.options, filtro.titulo)"
+                                (keyup.enter)="selecionarFiltro($event,filtro.controller,filtro.titulo)" 
+                                ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let options of filtro.options" [value]="options" >
+                                {{options}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="body-cadastro">
+                    <div class="row">
+                        <mat-form-field class="col-2"  appearance="fill">
+                            <mat-label>Numero:</mat-label>
+                            <input matInput type="text" value="00000" formControlName="formValor">
+                        </mat-form-field>
+                        <mat-form-field class="col-8 "  appearance="fill">
+                            <mat-label>Titulo:</mat-label>
+                            <input matInput placeholder="Titulo do Filme" formControlName="formTitulo">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="col-5"  appearance="fill">
+                            <mat-label>Atores:</mat-label>
+                            <textarea matInput  formControlName="formAtores"></textarea>
+                        </mat-form-field>
+                        <mat-form-field class="col-5"  appearance="fill">
+                            <mat-label>Diretores:</mat-label>
+                            <textarea matInput formControlName="formDiretores"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="footer-body">
+                        <mat-form-field appearance="fill" floatLabel="always">
+                            <mat-label>Preço</mat-label>
+                            <input matInput type="number"  placeholder="0" formControlName="formPrice">
+                            <span matPrefix>R$&nbsp;</span>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Data Cadastro</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="formDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="container-rigth col-4">
+                <div class="imagem-filme col-12" [style.background-image]="'url('+ imagemCarregada +')'" >
+                </div>
+                <label *ngIf="!mostrarImput"  class="mudar-imagem col-12" (click)="showImput()" >Click para mudar a imagem
+                </label>
+                <input *ngIf="mostrarImput"  type="text" placeholder="Insira a URL da imagem aqui" class="col-12" (keyup.enter)="showImput()" formControlName="formPoster"/>
+                <label class="titulo-filme col-12">{{tituloFilme || 'Titulo do Filme'}}</label>
+            </div>
+            
+        </div>
+        <div class="table-filmes col-12" *ngIf="dataSource.length" >
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 col-12">
+                <ng-container matColumnDef="Numero do Filme" class="col-2">
+                  <th mat-header-cell *matHeaderCellDef> Numero do Filme </th>
+                  <td mat-cell *matCellDef="let element; let i = index"> {{i}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Titulo do Filme" class="col">
+                  <th mat-header-cell *matHeaderCellDef> Titulo do Filme </th>
+                  <td mat-cell *matCellDef="let element" class="titulo-filme" (click)="carregarDados(element)" > {{element.nome}} </td>
+                </ng-container>
+                <ng-container matColumnDef="valor" class="col">
+                  <th mat-header-cell *matHeaderCellDef> valor </th>
+                  <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Data Cadastro" class="col">
+                  <th mat-header-cell *matHeaderCellDef> Data Cadastro </th>
+                  <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Acoes" class="col">
+                    <th mat-header-cell *matHeaderCellDef>Ações</th>
+                    <td mat-cell *matCellDef="let element; let i = index"> 
+                        <button *ngFor="let acao of acoes" (click)="executarAcao(acao, i)" class="button-table">
+                            <mat-icon>{{acao.titulo}}</mat-icon>
+                        </button> 
+                    </td>
+                  </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>
